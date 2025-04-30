@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}} - AdverCity</title>
+    <link rel="stylesheet" href="/static/styles/header.css">
+    <link rel="stylesheet" href="/static/styles/footer.css">
+    <link rel="stylesheet" href="static/styles/help.css">
+    <link rel="stylesheet" href="/static/styles/main/styles.css">
+    <link rel="stylesheet" href="/static/styles/profile/profile.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Хедер -->
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="/static/img/logo.png" alt="Логотип">
+                <a href="/">AdverCity</a>
+            </div>
+            <nav>
+                <ul class="main-menu">
+                    <li><a href="/">Главная</a></li>
+                    <li><a href="/catalog">Готовые предложения</a></li>
+                    <li><a href="/evaluation">Оценка</a></li>
+                    <li><a href="/news">Новости</a></li>
+                </ul>
+                <ul class="main-menu auth-links" id="auth-links">
+                    {{#if user}}
+                        <li><a href="/profile">Личный кабинет</a></li>
+                        <li><a href="/logout" id="logout-link">Выйти</a></li>
+                    {{else}}
+                        <li><a href="/auth">Вход</a></li>
+                        <li><a href="/register">Регистрация</a></li>
+                    {{/if}}
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Основной контент -->
+    <main>
+        <div class="container">
+            <!-- Информация о пользователе в правом верхнем углу -->
+            <div class="user-info">
+                <h2>Пользователь</h2>
+                <p><strong>Email:</strong> {{user.email}}</p>
+                <p><strong>Дата регистрации:</strong> {{user.created_at}}</p>
+            </div>
+
+            <!-- Заказы в центре -->
+            <section class="orders-section">
+                <h1>{{#if isManager}}Все заказы{{else}}Мои заказы{{/if}}</h1>
+                {{#if isManager}}
+                <div class="filter-section">
+                    <div class="filter-group">
+                        <label for="status-filter">Статус:</label>
+                        <select id="status-filter">
+                            <option value="">Все</option>
+                            <option value="completed">Выполнен</option>
+                            <option value="in_progress">Выполняется</option>
+                            <option value="rejected">Отклонен</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label>Цена (руб):</label>
+                        <input type="number" id="price-min" placeholder="От">
+                        <input type="number" id="price-max" placeholder="До">
+                    </div>
+                    <div class="filter-group">
+                        <label for="user-filter">Пользователь (email):</label>
+                        <input type="text" id="user-filter" placeholder="Введите email">
+                    </div>
+                    <div class="filter-group">
+                        <label for="search">Поиск:</label>
+                        <input type="text" id="search" placeholder="ID или описание">
+                    </div>
+                    <button onclick="applyFilters()" class="filter-btn">Применить фильтры</button>
+                </div>
+                {{/if}}
+
+                {{#if orders.length}}
+                <div class="orders-list">
+                    {{#each orders}}
+                    <div class="order-card" data-status="{{this.status}}" data-price="{{this.total_cost}}" data-user="{{this.email}}" data-description="{{this.description}}" data-id="{{this.id}}">
+                        <div class="order-header">
+                            <h3>Заказ #{{this.id}}</h3>
+                            {{#if ../isManager}}
+                                <div class="order-actions">
+                                    <select class="status-select" data-order-id="{{this.id}}" onchange="updateStatus(this)">
+                                        <option value="completed" {{#if (eq this.status "completed")}}selected{{/if}}>Выполнен</option>
+                                        <option value="in_progress" {{#if (eq this.status "in_progress")}}selected{{/if}}>Выполняется</option>
+                                        <option value="rejected" {{#if (eq this.status "rejected")}}selected{{/if}}>Отклонен</option>
+                                    </select>
+                                    <button class="delete-btn" data-order-id="{{this.id}}">Удалить</button>
+                                </div>
+                            {{/if}}
+                        </div>
+                        <div class="order-details">
+                            <p><strong>Статус:</strong> 
+                                {{#if (eq this.status "completed")}}Выполнен
+                                {{else if (eq this.status "in_progress")}}Выполняется
+                                {{else if (eq this.status "rejected")}}Отклонен
+                                {{else}}Не указан{{/if}}
+                            </p>
+                            {{#if ../isManager}}
+                                <p><strong>Пользователь:</strong> {{#if this.email}}{{this.email}}{{else}}Не указан{{/if}}</p>
+                            {{/if}}
+                            <p><strong>Тип баннера:</strong> 
+                                {{#if this.banner_type}}
+                                    {{#if (eq this.banner_type "1")}}Суперсайт
+                                    {{else if (eq this.banner_type "2")}}Билборд
+                                    {{else if (eq this.banner_type "3")}}Лайтпостер
+                                    {{else if (eq this.banner_type "4")}}Мультипиллар
+                                    {{else}}Неизвестный тип{{/if}}
+                                {{else}}Не указан{{/if}}
+                            </p>
+                            <p><strong>Площадь:</strong> {{this.area}} кв. м</p>
+                            <p><strong>Материал:</strong> 
+                                {{#if this.material}}
+                                    {{#if (eq this.material "1")}}Пластик
+                                    {{else if (eq this.material "2")}}Металл
+                                    {{else if (eq this.material "3")}}Ткань
+                                    {{else}}Неизвестный материал{{/if}}
+                                {{else}}Не указан{{/if}}
+                            </p>
+                            <p><strong>Тип работы:</strong> 
+                                {{#if this.work_type}}
+                                    {{#if (eq this.work_type "1")}}Фотопечать
+                                    {{else if (eq this.work_type "2")}}Ручная работа
+                                    {{else if (eq this.work_type "3")}}Шелкография
+                                    {{else}}Неизвестный тип{{/if}}
+                                {{else}}Не указан{{/if}}
+                            </p>
+                            <p><strong>Срочность:</strong> 
+                                {{#if this.urgency}}
+                                    {{#if (eq this.urgency "1")}}Обычная
+                                    {{else if (eq this.urgency "2")}}Срочная
+                                    {{else if (eq this.urgency "3")}}Очень срочная
+                                    {{else}}Неизвестно{{/if}}
+                                {{else}}Не указан{{/if}}
+                            </p>
+                            <p><strong>Сезон:</strong> 
+                                {{#if this.season}}
+                                    {{#if (eq this.season "1")}}Без сезона
+                                    {{else if (eq this.season "2")}}Низкий сезон
+                                    {{else if (eq this.season "3")}}Высокий сезон
+                                    {{else}}Неизвестно{{/if}}
+                                {{else}}Не указан{{/if}}
+                            </p>
+                            <p><strong>Сложность дизайна:</strong> 
+                                {{#if this.design_complexity}}
+                                    {{#if (eq this.design_complexity "1")}}Простой
+                                    {{else if (eq this.design_complexity "2")}}Средний
+                                    {{else if (eq this.design_complexity "3")}}Сложный
+                                    {{else}}Неизвестно{{/if}}
+                                {{else}}Не указан{{/if}}
+                            </p>
+                            <p><strong>Доп. площадь:</strong> {{this.additional_area}} кв. м</p>
+                            <p><strong>Дефекты материала:</strong> 
+                                {{#if this.material_defect}}
+                                    {{#if (eq this.material_defect "1")}}Без дефектов
+                                    {{else if (eq this.material_defect "2")}}Небольшие дефекты
+                                    {{else if (eq this.material_defect "3")}}Серьезные дефекты
+                                    {{else}}Неизвестно{{/if}}
+                                {{else}}Не указан{{/if}}
+                            </p>
+                            <p><strong>Объем:</strong> {{this.order_volume}} шт.</p>
+                            <p><strong>Дистанция доставки:</strong> {{this.delivery_distance}} км</p>
+                            <p><strong>Стоимость:</strong> {{this.total_cost}} руб.</p>
+                            <p><strong>Дата создания:</strong> {{this.created_at}}</p>
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
+                {{else}}
+                <p class="no-orders">Заказы отсутствуют.</p>
+                {{/if}}
+            </section>
+        </div>
+    </main>
+
+    <!-- Футер -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Контакты</h4>
+                    <p>Адрес: Брянск. пр-т Ленина 41</p>
+                    <p>Телефон: +7-900-693-72-80</p>
+                    <p>Email: qweasdzxc.2015@yandex.ru</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Социальные Сети</h4>
+                    <ul>
+                        <li><a href="https://vk.com/yurnero2488">VK</a></li>
+                        <li><a href="#">Telegram</a></li>
+                        <li><a href="#">Instagram</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Полезная Информация</h4>
+                    <ul>
+                        <li><a href="/about">О нас</a></li>
+                        <li><a href="/terms">Условия использования</a></li>
+                        <li><a href="/privacy">Политика конфиденциальности</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2024 AdverCity. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+    <!-- Кнопка помощи -->
+    <div id="help-button" class="help-button" onclick="toggleHelpForm()">?</div>
+
+    <!-- Форма помощи -->
+    <div id="help-form" class="help-form">
+        <span class="close-btn" onclick="toggleHelpForm()">&times;</span>
+        <h2>Получить помощь</h2>
+        <form id="help-form-fields">
+            <label for="help-name">Ваше имя:</label>
+            <input type="text" id="help-name" name="help-name" required>
+            <label for="help-email">Ваш email:</label>
+            <input type="email" id="help-email" name="help-email" required>
+            <label for="help-message">Ваш вопрос:</label>
+            <textarea id="help-message" name="help-message" required></textarea>
+            <button type="submit" class="btn">Отправить</button>
+        </form>
+    </div>
+    <!-- Скрипты -->
+    <script>
+        // Удаление заказов
+        document.querySelectorAll('.delete-btn').forEach(button => {
+            button.addEventListener('click', async () => {
+                const orderId = button.getAttribute('data-order-id');
+                if (confirm('Вы уверены, что хотите удалить этот заказ?')) {
+                    try {
+                        const response = await fetch('/delete-order', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({ orderId }),
+                            credentials: 'include'
+                        });
+                        const data = await response.json();
+                        if (data.success) {
+                            alert('Заказ удалён!');
+                            location.reload();
+                        } else {
+                            alert('Ошибка: ' + data.message);
+                        }
+                    } catch (error) {
+                        alert('Произошла ошибка при удалении заказа.');
+                        console.error(error);
+                    }
+                }
+            });
+        });
+
+        // Обновление статуса заказа
+        async function updateStatus(select) {
+            const orderId = select.getAttribute('data-order-id');
+            const newStatus = select.value;
+            try {
+                const response = await fetch('/update-order-status', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ orderId, status: newStatus }),
+                    credentials: 'include'
+                });
+                const data = await response.json();
+                if (data.success) {
+                    alert('Статус заказа обновлён!');
+                    location.reload();
+                } else {
+                    alert('Ошибка: ' + data.message);
+                }
+            } catch (error) {
+                alert('Произошла ошибка при обновлении статуса.');
+                console.error(error);
+            }
+        }
+
+        // Фильтрация заказов
+        function applyFilters() {
+            const status = document.getElementById('status-filter').value;
+            const priceMin = parseFloat(document.getElementById('price-min').value) || 0;
+            const priceMax = parseFloat(document.getElementById('price-max').value) || Infinity;
+            const userFilter = document.getElementById('user-filter').value.toLowerCase();
+            const search = document.getElementById('search').value.toLowerCase();
+
+            document.querySelectorAll('.order-card').forEach(card => {
+                const cardStatus = card.getAttribute('data-status') || '';
+                const cardPrice = parseFloat(card.getAttribute('data-price')) || 0;
+                const cardUser = card.getAttribute('data-user')?.toLowerCase() || '';
+                const cardDescription = card.getAttribute('data-description')?.toLowerCase() || '';
+                const cardId = card.getAttribute('data-id') || '';
+
+                const matchesStatus = !status || cardStatus === status;
+                const matchesPrice = cardPrice >= priceMin && cardPrice <= priceMax;
+                const matchesUser = !userFilter || cardUser.includes(userFilter);
+                const matchesSearch = !search || cardId.includes(search) || cardDescription.includes(search);
+
+                card.style.display = (matchesStatus && matchesPrice && matchesUser && matchesSearch) ? 'block' : 'none';
+            });
+        }
+    </script>
+
+    <script src="/static/js/help.js"></script>
+    <script src="/static/js/auth.js"></script>
+</body>
+</html>

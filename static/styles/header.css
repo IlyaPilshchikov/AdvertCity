@@ -1,0 +1,98 @@
+/* Стили для хедера */
+header {
+    background-color: #fff; /* Белый фон */
+    padding: 10px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+header .logo {
+    display: flex;
+    align-items: center;
+}
+
+header .logo img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+header .logo a {
+    color: #555; /* Темно-серый */
+    text-decoration: none;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    transition: color 0.3s ease;
+}
+
+header .logo a:hover {
+    color: #ff6f61; /* Акцентный цвет */
+}
+
+header nav {
+    display: flex;
+    align-items: center;
+}
+
+header nav ul {
+    width: 820px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+header nav ul li {
+    margin-right: 20px;
+    position: relative;
+}
+
+header nav ul li:last-child {
+    margin-right: 0;
+}
+
+header nav ul li a {
+    color: #555; /* Темно-серый */
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s ease, background-color 0.3s ease;
+    padding: 8px 30px;
+    border-radius: 20px;
+    display: block;
+}
+
+header nav ul li a:hover {
+    color: #ff6f61; /* Акцентный цвет */
+    background-color: #f0f2f5; /* Светло-серый фон при наведении */
+}
+
+header nav .auth-links {
+    margin-left: auto;
+}
+
+/* Медиа-запросы для адаптивности */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    header nav {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    header nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    header nav ul li {
+        margin: 10px 0;
+    }
+
+    header nav .auth-links {
+        margin-left: 0;
+    }
+}

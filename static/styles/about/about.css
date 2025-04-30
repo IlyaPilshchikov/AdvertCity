@@ -1,0 +1,89 @@
+/* Общие стили */
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f2f5; /* Светло-серый фон */
+    color: #333; /* Темно-серый текст */
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+    max-width: 1200px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Стили для контейнера контента страницы */
+.content-container {
+    width: 80%;
+    margin: 0 auto;
+    max-width: 1200px;
+    display: block; /* Убираем flex для контента */
+}
+
+/* Стили для страницы "О нас" */
+.about-page {
+    padding: 80px 0;
+    text-align: center;
+    overflow: hidden;
+}
+
+.about-page h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.about-description {
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 40px;
+    text-align: left;
+}
+
+.about-section {
+    margin-bottom: 40px;
+    text-align: left;
+}
+
+.about-section h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.about-section p {
+    font-size: 16px;
+    line-height: 1.4;
+}
+
+.btn {
+    display: inline-block;
+    background-color: #ff6f61; /* Акцентный цвет */
+    color: #fff; /* Белый текст */
+    padding: 10px 20px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #555; /* Темно-серый фон */
+}
+
+/* Анимации */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация - AdverCity</title>
+    <link rel="stylesheet" href="static/styles/header.css">
+    <link rel="stylesheet" href="static/styles/footer.css">
+    <link rel="stylesheet" href="static/styles/help.css">
+    <link rel="stylesheet" href="static/styles/auth/auth.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="static/img/logo.png" alt="Логотип">
+                <a href="/">AdverCity</a>
+            </div>
+            <nav>
+                <ul class="main-menu">
+                    <li><a href="/">Главная</a></li>
+                    <li><a href="/catalog">Готовые предложения</a></li>
+                    <li><a href="evaluation">Оценка</a></li>
+                    <li><a href="news">Новости</a></li>
+                </ul>
+                <ul class="main-menu auth-links" id="auth-links">
+                    {{#if user}}
+                        <li><a href="/profile">Личный кабинет</a></li>
+                        <li><a href="logout" id="logout-link">Выйти</a></li> <!-- Убрали href="/logout" -->
+                    {{else}}
+                        <li><a href="auth">Вход</a></li>
+                        <li><a href="register">Регистрация</a></li>
+                    {{/if}}
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section class="auth-page">
+            <div class="content-container">
+                <h1>Регистрация</h1>
+                <form id="register-form" class="auth-form">
+                    <label for="register-name">Имя:</label>
+                    <input type="text" id="register-name" name="register-name" required>
+                    <label for="register-email">Email:</label>
+                    <input type="email" id="register-email" name="register-email" required>
+                    <input type="hidden" id="register-role" name="register-role" value="user">
+                    <label for="register-password">Пароль:</label>
+                    <input type="password" id="register-password" name="register-password" required>
+                    <div id="password-error" class="error-message"></div>
+                    <label for="register-confirm-password">Подтвердите пароль:</label>
+                    <input type="password" id="register-confirm-password" name="register-confirm-password" required>
+                    <div id="confirm-password-error" class="error-message"></div>
+                    <button type="submit" class="btn">Зарегистрироваться</button>
+                </form>
+                <p>Уже есть аккаунт? <a href="auth">Войти</a></p>
+            </div>
+        </section>
+    </main>
+    <!-- Футер (Footer) -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Контакты</h4>
+                    <p>Адрес: Брянск. пр-т Ленина 41</p>
+                    <p>Телефон: +7-900-693-72-80</p>
+                    <p>Email: qweasdzxc.2015@yandex.ru</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Социальные Сети</h4>
+                    <ul>
+                        <li><a href="https://vk.com/yurnero2488">VK</a></li>
+                        <li><a href="#">Telegram</a></li>
+                        <li><a href="#">Instagram</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Полезная Информация</h4>
+                    <ul>
+                        <li><a href="about">О нас</a></li>
+                        <li><a href="terms">Условия использования</a></li>
+                        <li><a href="privacy">Политика конфиденциальности</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 AdverCity. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+    <!-- Кнопка помощи -->
+    <div id="help-button" class="help-button" onclick="toggleHelpForm()">?</div>
+
+    <!-- Форма помощи -->
+    <div id="help-form" class="help-form">
+        <span class="close-btn" onclick="toggleHelpForm()">&times;</span>
+        <h2>Получить помощь</h2>
+        <form id="help-form-fields">
+            <label for="help-name">Ваше имя:</label>
+            <input type="text" id="help-name" name="help-name" required>
+            <label for="help-email">Ваш email:</label>
+            <input type="email" id="help-email" name="help-email" required>
+            <label for="help-message">Ваш вопрос:</label>
+            <textarea id="help-message" name="help-message" required></textarea>
+            <button type="submit" class="btn">Отправить</button>
+        </form>
+    </div>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+
+    <!-- Подключение JavaScript -->
+    <script src="/static/js/help.js"></script>
+    <script src="/static/js/auth.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

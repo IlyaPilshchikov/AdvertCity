@@ -1,0 +1,75 @@
+/* Стили для футера */
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0; /* Уменьшили отступы для более компактного отображения */
+    text-align: center;
+    margin-top: 80px;
+    width: 100%;
+    animation: fadeInUp 1s ease-in-out;
+}
+
+.container {
+    max-width: 1200px; /* Ограничиваем ширину контейнера */
+    margin: 0 auto; /* Центрируем контейнер */
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap; /* Запрещаем перенос на новую строку */
+    padding: 0 20px; /* Добавляем отступы слева и справа */
+}
+
+.footer-section {
+    flex: 1 1 auto; /* Убираем фиксированную ширину */
+    margin: 0 10px; /* Уменьшаем отступы между секциями */
+    text-align: left; /* Выравниваем текст по левому краю */
+}
+
+.footer-section h4 {
+    font-size: 18px; /* Уменьшаем размер заголовка */
+    margin-bottom: 10px;
+}
+
+.footer-section p, .footer-section ul {
+    font-size: 14px; /* Уменьшаем размер текста */
+    margin-bottom: 5px; /* Уменьшаем отступы */
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 5px; /* Уменьшаем отступы между элементами списка */
+}
+
+.footer-section ul li a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+    color: #ff6f61;
+}
+
+.footer-bottom {
+    margin-top: 20px; /* Уменьшаем отступ сверху */
+    font-size: 12px; /* Уменьшаем размер текста */
+    text-align: center; /* Центрируем текст */
+}
+
+/* Анимация для футера */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

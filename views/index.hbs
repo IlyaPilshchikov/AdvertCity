@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AdverCity - Оценка Рекламных Конструкций</title>
+    <link rel="stylesheet" href="/static/styles/header.css">
+    <link rel="stylesheet" href="/static/styles/footer.css">
+    <link rel="stylesheet" href="/static/styles/help.css">
+    <link rel="stylesheet" href="/static/styles/main/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="/static/img/logo.png" alt="Логотип">
+                <a href="/">AdverCity</a>
+            </div>
+            <nav>
+                <ul class="main-menu">
+                    <li><a href="/">Главная</a></li>
+                    <li><a href="/catalog">Готовые предложения</a></li>
+                    <li><a href="/evaluation">Оценка</a></li>
+                    <li><a href="/news">Новости</a></li>
+                </ul>
+                <ul class="main-menu auth-links" id="auth-links">
+                    {{#if user}}
+                        {{#if (eq user.role "admin")}}
+                            <li><a href="/admin">Администрирование</a></li>
+                        {{else}}
+                            <li><a href="/profile">Личный кабинет</a></li>
+                        {{/if}}
+                        <li><a href="#" id="logout-link">Выйти</a></li>
+                    {{else}}
+                        <li><a href="/auth">Вход</a></li>
+                        <li><a href="/register">Регистрация</a></li>
+                    {{/if}}
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section class="hero">
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide slide1"></div>
+                    <div class="swiper-slide slide2"></div>
+                    <div class="swiper-slide slide3"></div>
+                </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+            <div class="container">
+                <h1>ADVERCITY</h1>
+                <p><strong>Надежный сервис для оценки и анализа рекламных конструкций. Получите профессиональные рекомендации и улучшите свои проекты.</strong></p>
+                <div class="btn-container">
+                    <a href="/catalog" class="btn">Начать</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Преимущества (Features) -->
+        <section class="features" data-aos="fade-up">
+            <div class="container">
+                <h2>Наши Преимущества</h2>
+                <div class="feature-list">
+                    <div class="feature-item" data-aos="fade-right">
+                        <img src="/static/img/Ocenka.png" alt="Иконка 1">
+                        <h3>Профессиональная Оценка</h3>
+                        <p>Наша команда экспертов обеспечит вам высококачественную оценку рекламных конструкций.</p>
+                    </div>
+                    <div class="feature-item" data-aos="fade-up">
+                        <img src="/static/img/Rezult.png" alt="Иконка 2">
+                        <h3>Быстрый Результат</h3>
+                        <p>Получите результаты оценки в кратчайшие сроки и примите взвешенные решения.</p>
+                    </div>
+                    <div class="feature-item" data-aos="fade-left">
+                        <h3>Удобный Интерфейс</h3>
+                        <p>Простой и интуитивно понятный интерфейс, который сделает вашу работу более эффективной.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Примеры работ (Portfolio) -->
+        <section class="portfolio" data-aos="fade-up">
+            <div class="container">
+                <h2>Примеры Работ</h2>
+                <div class="portfolio-list">
+                    <div class="portfolio-item" data-aos="fade-right">
+                        <img src="/static/img/reklama1.png" alt="Пример 1">
+                        <h3>Pantene</h3>
+                        <p>Объемный баннер на главной дороге с большим потоком людей. Дизайн в приятных взгляду тонах</p>
+                        <p>Цена работы 60000</p>
+                    </div>
+                    <div class="portfolio-item" data-aos="fade-up">
+                        <img src="/static/img/reklama2.png" alt="Пример 2">
+                        <h3>Premium House</h3>
+                        <p>2D баннер, разработанный нашими дизайнерами. От него прям веет изысканностью</p>
+                        <p>Цена работы 23000</p>
+                    </div>
+                    <div class="portfolio-item" data-aos="fade-left">
+                        <img src="/static/img/reklama3.png" alt="Пример 3">
+                        <h3>Сок "Фруктовый сад"</h3>
+                        <p>3D баннер с использованием качественных материалов и надежного крепления. Несмотря на его вес, он выстоит даже в сильнейшую непогоду</p>
+                        <p>Цена работы 33000</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Отзывы (Testimonials) -->
+        <section class="testimonials" data-aos="fade-up">
+            <div class="container">
+                <h2>Отзывы Наших Клиентов</h2>
+                <div class="testimonial-list">
+                    <div class="testimonial-item" data-aos="fade-right">
+                        <h4>Иван Иванов</h4>
+                        <p>"Отличный сервис! Оценка рекламных конструкций стала для меня намного проще и быстрее."</p>
+                    </div>
+                    <div class="testimonial-item" data-aos="fade-up">
+                        <h4>Анна Петрова</h4>
+                        <p>"Высококачественные рекомендации и профессиональный подход. Рекомендую!"</p>
+                    </div>
+                    <div class="testimonial-item" data-aos="fade-left">
+                        <h4>Мария Сидорова</h4>
+                        <p>"Простой и удобный интерфейс. Получила результаты оценки в считанные минуты."</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Новости и обновления (News & Updates) -->
+        <section class="news" data-aos="fade-up">
+            <div class="container">
+                <h2>Новости и Обновления</h2>
+                <div class="news-list">
+                    <div class="news-item" data-aos="fade-right">
+                        <h3>Новая Функциональность</h3>
+                        <p>Мы добавили новую функцию для более детальной оценки рекламных конструкций.</p>
+                        <a href="/news#new-functionality" class="btn">Подробнее</a>
+                    </div>
+                    <div class="news-item" data-aos="fade-up">
+                        <h3>Обновление Интерфейса</h3>
+                        <p>Интерфейс сервиса был обновлен для улучшения пользовательского опыта.</p>
+                        <a href="/news#interface-update" class="btn">Подробнее</a>
+                    </div>
+                    <div class="news-item" data-aos="fade-left">
+                        <h3>Новые Эксперты</h3>
+                        <p>Мы расширили команду экспертов для более качественной оценки.</p>
+                        <a href="/news#new-experts" class="btn">Подробнее</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Футер (Footer) -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Контакты</h4>
+                    <p>Адрес: Брянск. пр-т Ленина 41</p>
+                    <p>Телефон: +7-900-693-72-80</p>
+                    <p>Email: qweasdzxc.2015@yandex.ru</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Социальные Сети</h4>
+                    <ul>
+                        <li><a href="https://vk.com/yurnero2488">VK</a></li>
+                        <li><a href="#">Telegram</a></li>
+                        <li><a href="#">Instagram</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Полезная Информация</h4>
+                    <ul>
+                        <li><a href="/about">О нас</a></li>
+                        <li><a href="/terms">Условия использования</a></li>
+                        <li><a href="/privacy">Политика конфиденциальности</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2024 AdverCity. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+    <!-- Кнопка помощи -->
+    <div id="help-button" class="help-button" onclick="toggleHelpForm()">?</div>
+
+    <!-- Форма помощи -->
+    <div id="help-form" class="help-form">
+        <span class="close-btn" onclick="toggleHelpForm()">&times;</span>
+        <h2>Получить помощь</h2>
+        <form id="help-form-fields">
+            <label for="help-name">Ваше имя:</label>
+            <input type="text" id="help-name" name="help-name" required>
+            <label for="help-email">Ваш email:</label>
+            <input type="email" id="help-email" name="help-email" required>
+            <label for="help-message">Ваш вопрос:</label>
+            <textarea id="help-message" name="help-message" required></textarea>
+            <button type="submit" class="btn">Отправить</button>
+        </form>
+    </div>
+    <!-- Подключение Swiper.js -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+        var swiper = new Swiper('.swiper-container', {
+            loop: true,
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+    </script>
+
+    <!-- Подключение AOS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+    
+    <script src="/static/js/help.js"></script>
+    <script src="/static/js/auth.js"></script>
+    <script src="/js/main.js"></script>
+</body>
+</html>

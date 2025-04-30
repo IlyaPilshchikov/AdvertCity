@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}} - AdverCity</title>
+    <link rel="stylesheet" href="/static/styles/header.css">
+    <link rel="stylesheet" href="/static/styles/footer.css">
+    <link rel="stylesheet" href="/static/styles/help.css">
+    <link rel="stylesheet" href="/static/styles/catalog/catalog.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="/static/img/logo.png" alt="Логотип">
+                <a href="/">AdverCity</a>
+            </div>
+            <nav>
+                <ul class="main-menu">
+                    <li><a href="/">Главная</a></li>
+                    <li><a href="/catalog">Готовые предложения</a></li>
+                    <li><a href="/evaluation">Оценка</a></li>
+                    <li><a href="/news">Новости</a></li>
+                </ul>
+                <ul class="main-menu auth-links" id="auth-links">
+                    {{#if user}}
+                        <li><a href="/profile">Личный кабинет</a></li>
+                        <li><a href="/logout" id="logout-link">Выйти</a></li>
+                    {{else}}
+                        <li><a href="/auth">Вход</a></li>
+                        <li><a href="/register">Регистрация</a></li>
+                    {{/if}}
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section class="offers-page">
+            <div class="content-container">
+                <h1>Готовые предложения</h1>
+                <p class="offers-description">
+                    Ознакомьтесь с нашими готовыми предложениями. Вы можете добавить их в заказы одним нажатием!
+                </p>
+                <div class="offers-list">
+                    {{#if offers.length}}
+                        {{#each offers}}
+                        <div class="offer-item" data-aos="fade-up">
+                            <!-- Контейнер для 3D-модели -->
+                            <div class="model-container" data-banner-type="{{this.banner_type}}"></div>
+                            <h2>{{this.name}}</h2>
+                            <p class="offer-description">{{this.description}}</p>
+                            <div class="offer-details">
+                                <p><strong>Тип баннера:</strong> 
+                                    {{#if this.banner_type}}
+                                        {{#if (eq this.banner_type "1")}}Суперсайт
+                                        {{else if (eq this.banner_type "2")}}Билборд
+                                        {{else if (eq this.banner_type "3")}}Лайтпостер
+                                        {{else if (eq this.banner_type "4")}}Мультипиллар
+                                        {{else}}Неизвестный тип{{/if}}
+                                    {{else}}Не указан{{/if}}
+                                </p>
+                                <p><strong>Площадь:</strong> {{this.area}} кв. м</p>
+                                <p><strong>Материал:</strong> 
+                                    {{#if this.material}}
+                                        {{#if (eq this.material "1")}}Пластик
+                                        {{else if (eq this.material "2")}}Металл
+                                        {{else if (eq this.material "3")}}Ткань
+                                        {{else}}Неизвестный материал{{/if}}
+                                    {{else}}Не указан{{/if}}
+                                </p>
+                                <p><strong>Тип работы:</strong> 
+                                    {{#if this.work_type}}
+                                        {{#if (eq this.work_type "1")}}Фотопечать
+                                        {{else if (eq this.work_type "2")}}Ручная работа
+                                        {{else if (eq this.work_type "3")}}Шелкография
+                                        {{else}}Неизвестный тип{{/if}}
+                                    {{else}}Не указан{{/if}}
+                                </p>
+                                <p><strong>Срочность:</strong> 
+                                    {{#if this.urgency}}
+                                        {{#if (eq this.urgency "1")}}Обычная
+                                        {{else if (eq this.urgency "2")}}Срочная
+                                        {{else if (eq this.urgency "3")}}Очень срочная
+                                        {{else}}Неизвестно{{/if}}
+                                    {{else}}Не указан{{/if}}
+                                </p>
+                                <p><strong>Сезон:</strong> 
+                                    {{#if this.season}}
+                                        {{#if (eq this.season "1")}}Без сезона
+                                        {{else if (eq this.season "2")}}Низкий сезон
+                                        {{else if (eq this.season "3")}}Высокий сезон
+                                        {{else}}Неизвестно{{/if}}
+                                    {{else}}Не указан{{/if}}
+                                </p>
+                                <p><strong>Сложность дизайна:</strong> 
+                                    {{#if this.design_complexity}}
+                                        {{#if (eq this.design_complexity "1")}}Простой
+                                        {{else if (eq this.design_complexity "2")}}Средний
+                                        {{else if (eq this.design_complexity "3")}}Сложный
+                                        {{else}}Неизвестно{{/if}}
+                                    {{else}}Не указан{{/if}}
+                                </p>
+                                <p><strong>Доп. площадь:</strong> {{this.additional_area}} кв. м</p>
+                                <p><strong>Дефекты материала:</strong> 
+                                    {{#if this.material_defect}}
+                                        {{#if (eq this.material_defect "1")}}Без дефектов
+                                        {{else if (eq this.material_defect "2")}}Небольшие дефекты
+                                        {{else if (eq this.material_defect "3")}}Серьезные дефекты
+                                        {{else}}Неизвестно{{/if}}
+                                    {{else}}Не указан{{/if}}
+                                </p>
+                                <p><strong>Объем:</strong> {{this.order_volume}} шт.</p>
+                                <p><strong>Дистанция доставки:</strong> {{this.delivery_distance}} км</p>
+                                <p><strong>Стоимость:</strong> {{this.total_cost}} руб.</p>
+                            </div>
+                            <button class="btn add-to-order-btn" data-offer-id="{{this.id}}">Добавить в заказы</button>
+                        </div>
+                        {{/each}}
+                    {{else}}
+                        <p class="no-offers">Готовые предложения отсутствуют.</p>
+                    {{/if}}
+                </div>
+                <a href="/" class="btn">Вернуться на главную</a>
+            </div>
+        </section>
+    </main>
+    <!-- Футер (Footer) -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Контакты</h4>
+                    <p>Адрес: Брянск. пр-т Ленина 41</p>
+                    <p>Телефон: +7-900-693-72-80</p>
+                    <p>Email: qweasdzxc.2015@yandex.ru</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Социальные Сети</h4>
+                    <ul>
+                        <li><a href="https://vk.com/yurnero2488">VK</a></li>
+                        <li><a href="#">Telegram</a></li>
+                        <li><a href="#">Instagram</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Полезная Информация</h4>
+                    <ul>
+                        <li><a href="/about">О нас</a></li>
+                        <li><a href="/terms">Условия использования</a></li>
+                        <li><a href="/privacy">Политика конфиденциальности</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2024 AdverCity. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+        <!-- Кнопка помощи -->
+    <div id="help-button" class="help-button" onclick="toggleHelpForm()">?</div>
+
+    <!-- Форма помощи -->
+    <div id="help-form" class="help-form">
+        <span class="close-btn" onclick="toggleHelpForm()">&times;</span>
+        <h2>Получить помощь</h2>
+        <form id="help-form-fields">
+            <label for="help-name">Ваше имя:</label>
+            <input type="text" id="help-name" name="help-name" required>
+            <label for="help-email">Ваш email:</label>
+            <input type="email" id="help-email" name="help-email" required>
+            <label for="help-message">Ваш вопрос:</label>
+            <textarea id="help-message" name="help-message" required></textarea>
+            <button type="submit" class="btn">Отправить</button>
+        </form>
+    </div>
+    <!-- Подключение AOS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- Подключение Three.js, GLTFLoader и OrbitControls -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/controls/OrbitControls.js"></script>
+    <script>
+        AOS.init();
+
+        // Настройка 3D-моделей для каждой карточки
+        document.querySelectorAll('.model-container').forEach(container => {
+            const bannerType = container.getAttribute('data-banner-type');
+            let modelPath;
+
+            // Определяем путь к модели в зависимости от типа баннера
+            switch (bannerType) {
+                case '1':
+                    modelPath = '/static/models/supersite.glb';
+                    break;
+                case '2':
+                    modelPath = '/static/models/billboard.glb';
+                    break;
+                case '3':
+                    modelPath = '/static/models/lightposter.glb';
+                    break;
+                case '4':
+                    modelPath = '/static/models/multipillar.glb';
+                    break;
+                default:
+                    console.error('Неизвестный тип баннера:', bannerType);
+                    return;
+            }
+
+            // Настройка сцены
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, container.clientWidth / 200, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(container.clientWidth, 200);
+            renderer.setClearColor(0x000000, 0); // Прозрачный фон
+            container.appendChild(renderer.domElement);
+
+            // Освещение (как в примере)
+            const ambientLight = new THREE.AmbientLight(0xffffff, 1.5);
+            scene.add(ambientLight);
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 1.0);
+            directionalLight.position.set(5, 5, 5);
+            scene.add(directionalLight);
+            const pointLight = new THREE.PointLight(0xffffff, 1.0);
+            pointLight.position.set(-5, 5, 5);
+            scene.add(pointLight);
+
+            // Загрузка модели
+            const loader = new THREE.GLTFLoader();
+            let model;
+            loader.load(
+                modelPath,
+                (gltf) => {
+                    model = gltf.scene;
+
+                    // Вычисляем ограничивающий бокс модели
+                    const box = new THREE.Box3().setFromObject(model);
+                    const size = box.getSize(new THREE.Vector3());
+                    const center = box.getCenter(new THREE.Vector3());
+
+                    // Центрируем модель
+                    model.position.sub(center); // Сдвигаем модель в центр (0, 0, 0)
+
+                    // Поднимаем модель, чтобы она не была под "полом"
+                    model.position.y += size.y / 4;
+
+                    // Автоматическое масштабирование: самая большая сторона равна 5 единиц
+                    const maxDimension = Math.max(size.x, size.y, size.z);
+                    const desiredSize = 5; // Целевой размер самой большой стороны
+                    const scale = desiredSize / maxDimension;
+                    model.scale.set(scale, scale, scale);
+
+                    scene.add(model);
+                    console.log(`Модель ${modelPath} успешно загружена`);
+                    console.log(`Размер модели: x=${size.x}, y=${size.y}, z=${size.z}, масштаб=${scale}`);
+                },
+                (progress) => {
+                    console.log(`Загрузка ${modelPath}: ${(progress.loaded / progress.total * 100).toFixed(2)}%`);
+                },
+                (error) => {
+                    console.error(`Ошибка загрузки модели ${modelPath}:`, error);
+                }
+            );
+
+            // Управление камерой (OrbitControls)
+            const controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableZoom = true; // Включаем зум
+            controls.enablePan = false; // Отключаем панорамирование
+            controls.minPolarAngle = Math.PI / 4; // Ограничение угла по вертикали
+            controls.maxPolarAngle = Math.PI / 2;
+            camera.position.set(0, 1, 5); // Позиция камеры
+            controls.update();
+
+            // Анимация
+            const animate = () => {
+                requestAnimationFrame(animate);
+                if (model) {
+                    model.rotation.y += 0.01; // Вращение модели по оси Y
+                }
+                controls.update();
+                renderer.render(scene, camera);
+            };
+            animate();
+
+            // Адаптация размера при изменении окна
+            window.addEventListener('resize', () => {
+                const width = container.clientWidth;
+                const height = 200;
+                renderer.setSize(width, height);
+                camera.aspect = width / height;
+                camera.updateProjectionMatrix();
+            });
+        });
+
+        // Обработка добавления в заказы
+        document.querySelectorAll('.add-to-order-btn').forEach(button => {
+            button.addEventListener('click', async () => {
+                const offerId = button.getAttribute('data-offer-id');
+                try {
+                    const response = await fetch('/add-offer-to-order', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ offerId }),
+                        credentials: 'include'
+                    });
+                    const data = await response.json();
+                    if (data.success) {
+                        alert('Предложение добавлено в заказы!');
+                        window.location.href = '/profile'; // Перенаправляем в личный кабинет
+                    } else {
+                        alert('Ошибка: ' + data.message);
+                    }
+                } catch (error) {
+                    alert('Произошла ошибка при добавлении предложения в заказы.');
+                    console.error(error);
+                }
+            });
+        });
+    </script>
+    <!-- Подключение JavaScript -->
+    <script src="/static/js/help.js"></script>
+    <script src="/static/js/auth.js"></script>
+</body>
+</html>

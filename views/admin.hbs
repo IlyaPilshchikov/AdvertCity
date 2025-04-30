@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}} - AdverCity</title>
+    <link rel="stylesheet" href="/static/styles/header.css">
+    <link rel="stylesheet" href="/static/styles/footer.css">
+    <link rel="stylesheet" href="/static/styles/help.css">
+    <link rel="stylesheet" href="/static/styles/admin/admin.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="/static/img/logo.png" alt="Логотип">
+                <a href="/">AdverCity</a>
+            </div>
+            <nav>
+                <ul class="main-menu">
+                    <li><a href="/">Главная</a></li>
+                    <li><a href="/catalog">Готовые предложения</a></li>
+                    <li><a href="/evaluation">Оценка</a></li>
+                    <li><a href="/news">Новости</a></li>
+                </ul>
+                <ul class="main-menu auth-links" id="auth-links">
+                    {{#if user}}
+                        <li><a href="/admin">Администрирование</a></li>
+                        <li><a href="/logout" id="logout-link">Выйти</a></li>
+                    {{else}}
+                        <li><a href="/auth">Вход</a></li>
+                        <li><a href="/register">Регистрация</a></li>
+                    {{/if}}
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section class="admin-page">
+            <div class="content-container">
+                <h1>Администрирование</h1>
+                <p class="admin-description">Управляйте готовыми предложениями, пользователями и настройками цен.</p>
+
+                <!-- Секция управления готовыми предложениями -->
+                <div class="admin-section">
+                    <h2>Управление готовыми предложениями</h2>
+                    <button class="btn" onclick="openAddOfferForm()">Добавить предложение</button>
+                    <div id="add-offer-form" class="form-container" style="display: none;">
+                        <h3>Добавить новое предложение</h3>
+                        <form id="add-offer-form-data">
+                            <div class="form-group">
+                                <label for="add-offer-name">Название:</label>
+                                <input type="text" id="add-offer-name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="add-offer-description">Описание:</label>
+                                <textarea id="add-offer-description" name="description" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="add-offer-banner-type">Тип баннера:</label>
+                                <select id="add-offer-banner-type" name="banner_type" required>
+                                    <option value="1">Суперсайт</option>
+                                    <option value="2">Билборд</option>
+                                    <option value="3">Лайтпостер</option>
+                                    <option value="4">Мультипиллар</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="add-offer-area">Площадь (кв. м):</label>
+                                <input type="number" id="add-offer-area" name="area" min="1" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="add-offer-material">Материал:</label>
+                                <select id="add-offer-material" name="material" required>
+                                    <option value="1">Пластик</option>
+                                    <option value="2">Металл</option>
+                                    <option value="3">Ткань</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="add-offer-work-type">Тип работы:</label>
+                                <select id="add-offer-work-type" name="work_type" required>
+                                    <option value="1">Фотопечать</option>
+                                    <option value="2">Ручная работа</option>
+                                    <option value="3">Шелкография</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="add-offer-urgency">Срочность:</label>
+                                <select id="add-offer-urgency" name="urgency" required>
+                                    <option value="1">Обычная</option>
+                                    <option value="2">Срочная</option>
+                                    <option value="3">Очень срочная</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="add-offer-season">Сезон:</label>
+                                <select id="add-offer-season" name="season" required>
+                                    <option value="1">Без сезона</option>
+                                    <option value="2">Низкий сезон</option>
+                                    <option value="3">Высокий сезон</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="add-offer-design-complexity">Сложность дизайна:</label>
+                                <select id="add-offer-design-complexity" name="design_complexity" required>
+                                    <option value="1">Простой</option>
+                                    <option value="2">Средний</option>
+                                    <option value="3">Сложный</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="add-offer-additional-area">Доп. площадь (кв. м):</label>
+                                <input type="number" id="add-offer-additional-area" name="additional_area" min="0">
+                            </div>
+                            <div class="form-group">
+                                <label for="add-offer-material-defect">Дефекты материала:</label>
+                                <select id="add-offer-material-defect" name="material_defect" required>
+                                    <option value="1">Без дефектов</option>
+                                    <option value="2">Небольшие дефекты</option>
+                                    <option value="3">Серьезные дефекты</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="add-offer-order-volume">Объем (шт.):</label>
+                                <input type="number" id="add-offer-order-volume" name="order_volume" min="1" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="add-offer-delivery-distance">Дистанция доставки (км):</label>
+                                <input type="number" id="add-offer-delivery-distance" name="delivery_distance" min="0">
+                            </div>
+                            <div class="form-group">
+                                <label for="add-offer-total-cost">Стоимость (руб.):</label>
+                                <input type="number" id="add-offer-total-cost" name="total_cost" min="0" required>
+                            </div>
+                            <button type="submit" class="btn">Добавить</button>
+                            <button type="button" class="btn" onclick="closeAddOfferForm()">Отмена</button>
+                        </form>
+                    </div>
+                    <div id="edit-offer-form" class="form-container" style="display: none;">
+                        <h3>Редактировать предложение</h3>
+                        <form id="edit-offer-form-data">
+                            <input type="hidden" id="edit-offer-id" name="id">
+                            <div class="form-group">
+                                <label for="edit-offer-name">Название:</label>
+                                <input type="text" id="edit-offer-name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="edit-offer-description">Описание:</label>
+                                <textarea id="edit-offer-description" name="description" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="edit-offer-banner-type">Тип баннера:</label>
+                                <select id="edit-offer-banner-type" name="banner_type" required>
+                                    <option value="1">Суперсайт</option>
+                                    <option value="2">Билборд</option>
+                                    <option value="3">Лайтпостер</option>
+                                    <option value="4">Мультипиллар</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="edit-offer-area">Площадь (кв. м):</label>
+                                <input type="number" id="edit-offer-area" name="area" min="1" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="edit-offer-material">Материал:</label>
+                                <select id="edit-offer-material" name="material" required>
+                                    <option value="1">Пластик</option>
+                                    <option value="2">Металл</option>
+                                    <option value="3">Ткань</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="edit-offer-work-type">Тип работы:</label>
+                                <select id="edit-offer-work-type" name="work_type" required>
+                                    <option value="1">Фотопечать</option>
+                                    <option value="2">Ручная работа</option>
+                                    <option value="3">Шелкография</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="edit-offer-urgency">Срочность:</label>
+                                <select id="edit-offer-urgency" name="urgency" required>
+                                    <option value="1">Обычная</option>
+                                    <option value="2">Срочная</option>
+                                    <option value="3">Очень срочная</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="edit-offer-season">Сезон:</label>
+                                <select id="edit-offer-season" name="season" required>
+                                    <option value="1">Без сезона</option>
+                                    <option value="2">Низкий сезон</option>
+                                    <option value="3">Высокий сезон</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="edit-offer-design-complexity">Сложность дизайна:</label>
+                                <select id="edit-offer-design-complexity" name="design_complexity" required>
+                                    <option value="1">Простой</option>
+                                    <option value="2">Средний</option>
+                                    <option value="3">Сложный</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="edit-offer-additional-area">Доп. площадь (кв. м):</label>
+                                <input type="number" id="edit-offer-additional-area" name="additional_area" min="0">
+                            </div>
+                            <div class="form-group">
+                                <label for="edit-offer-material-defect">Дефекты материала:</label>
+                                <select id="edit-offer-material-defect" name="material_defect" required>
+                                    <option value="1">Без дефектов</option>
+                                    <option value="2">Небольшие дефекты</option>
+                                    <option value="3">Серьезные дефекты</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="edit-offer-order-volume">Объем (шт.):</label>
+                                <input type="number" id="edit-offer-order-volume" name="order_volume" min="1" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="edit-offer-delivery-distance">Дистанция доставки (км):</label>
+                                <input type="number" id="edit-offer-delivery-distance" name="delivery_distance" min="0">
+                            </div>
+                            <div class="form-group">
+                                <label for="edit-offer-total-cost">Стоимость (руб.):</label>
+                                <input type="number" id="edit-offer-total-cost" name="total_cost" min="0" required>
+                            </div>
+                            <button type="submit" class="btn">Сохранить</button>
+                            <button type="button" class="btn" onclick="closeEditOfferForm()">Отмена</button>
+                        </form>
+                    </div>
+                    <div class="offers-list">
+                        {{#if offers.length}}
+                            {{#each offers}}
+                            <div class="offer-item">
+                                <h3>{{this.name}}</h3>
+                                <p>{{this.description}}</p>
+                                <p><strong>Тип баннера:</strong> 
+                                    {{#if (eq this.banner_type "1")}}Суперсайт
+                                    {{else if (eq this.banner_type "2")}}Билборд
+                                    {{else if (eq this.banner_type "3")}}Лайтпостер
+                                    {{else if (eq this.banner_type "4")}}Мультипиллар
+                                    {{else}}Неизвестный тип{{/if}}
+                                </p>
+                                <p><strong>Площадь:</strong> {{this.area}} кв. м</p>
+                                <p><strong>Материал:</strong> 
+                                    {{#if (eq this.material "1")}}Пластик
+                                    {{else if (eq this.material "2")}}Металл
+                                    {{else if (eq this.material "3")}}Ткань
+                                    {{else}}Неизвестный материал{{/if}}
+                                </p>
+                                <p><strong>Стоимость:</strong> {{this.total_cost}} руб.</p>
+                                <button class="btn" onclick="openEditOfferForm({{this.id}}, '{{this.name}}', '{{this.description}}', '{{this.banner_type}}', {{this.area}}, '{{this.material}}', '{{this.work_type}}', '{{this.urgency}}', '{{this.season}}', '{{this.design_complexity}}', {{this.additional_area}}, '{{this.material_defect}}', {{this.order_volume}}, {{this.delivery_distance}}, {{this.total_cost}})">Редактировать</button>
+                                <button class="btn btn-danger" onclick="deleteOffer({{this.id}})">Удалить</button>
+                            </div>
+                            {{/each}}
+                        {{else}}
+                            <p class="no-offers">Готовые предложения отсутствуют.</p>
+                        {{/if}}
+                    </div>
+                </div>
+
+                <!-- Секция управления пользователями -->
+                <div class="admin-section">
+                    <h2>Управление пользователями</h2>
+                    <button class="btn" onclick="openUsersModal()">Открыть список пользователей</button>
+                    <div id="users-modal" class="modal">
+                        <div class="modal-content">
+                            <span class="close-modal" onclick="closeUsersModal()">&times;</span>
+                            <h3>Список пользователей</h3>
+                            <div class="user-search-container">
+                                <input type="text" id="user-search" placeholder="Поиск пользователя по email">
+                            </div>
+                            <table class="users-table">
+                                <thead>
+                                    <tr>
+                                        <th>Email</th>
+                                        <th>Роль</th>
+                                        <th>Действия</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="users-table-body"></tbody>
+                            </table>
+                            <div class="pagination">
+                                <button id="prev-page" onclick="loadUsers(currentPage - 1)">Предыдущая</button>
+                                <span id="page-info"></span>
+                                <button id="next-page" onclick="loadUsers(currentPage + 1)">Следующая</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Секция настройки цен -->
+                <div class="admin-section">
+                    <h2>Настройка цен</h2>
+                    <form id="pricing-form">
+                        <div class="form-group">
+                            <label for="base_cost">Базовая стоимость:</label>
+                            <input type="number" id="base_cost" name="base_cost" value="{{pricing.base_cost.value}}" min="0" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label for="banner_type_1">Суперсайт:</label>
+                            <input type="number" id="banner_type_1" name="banner_type_1" value="{{pricing.banner_type_1.value}}" min="0" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label for="banner_type_2">Билборд:</label>
+                            <input type="number" id="banner_type_2" name="banner_type_2" value="{{pricing.banner_type_2.value}}" min="0" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label for="banner_type_3">Лайтпостер:</label>
+                            <input type="number" id="banner_type_3" name="banner_type_3" value="{{pricing.banner_type_3.value}}" min="0" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label for="banner_type_4">Мультипиллар:</label>
+                            <input type="number" id="banner_type_4" name="banner_type_4" value="{{pricing.banner_type_4.value}}" min="0" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label for="material_1">Пластик:</label>
+                            <input type="number" id="material_1" name="material_1" value="{{pricing.material_1.value}}" min="0" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label for="material_2">Металл:</label>
+                            <input type="number" id="material_2" name="material_2" value="{{pricing.material_2.value}}" min="0" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label for="material_3">Ткань:</label>
+                            <input type="number" id="material_3" name="material_3" value="{{pricing.material_3.value}}" min="0" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label for="work_type_1">Фотопечать:</label>
+                            <input type="number" id="work_type_1" name="work_type_1" value="{{pricing.work_type_1.value}}" min="0" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label for="work_type_2">Ручная работа:</label>
+                            <input type="number" id="work_type_2" name="work_type_2" value="{{pricing.work_type_2.value}}" min="0" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label for="work_type_3">Шелкография:</label>
+                            <input type="number" id="work_type_3" name="work_type_3" value="{{pricing.work_type_3.value}}" min="0" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label for="urgency_2">Срочная надбавка:</label>
+                            <input type="number" id="urgency_2" name="urgency_2" value="{{pricing.urgency_2.value}}" min="0" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label for="urgency_3">Очень срочная надбавка:</label>
+                            <input type="number" id="urgency_3" name="urgency_3" value="{{pricing.urgency_3.value}}" min="0" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label for="season_1">Скидка за низкий сезон:</label>
+                            <input type="number" id="season_1" name="season_1" value="{{pricing.season_1.value}}" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label for="season_3">Надбавка за высокий сезон:</label>
+                            <input type="number" id="season_3" name="season_3" value="{{pricing.season_3.value}}" min="0" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label for="design_2">Надбавка за среднюю сложность:</label>
+                            <input type="number" id="design_2" name="design_2" value="{{pricing.design_2.value}}" min="0" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label for="design_3">Надбавка за сложный дизайн:</label>
+                            <input type="number" id="design_3" name="design_3" value="{{pricing.design_3.value}}" min="0" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label for="material_defect_2">Надбавка за небольшие дефекты:</label>
+                            <input type="number" id="material_defect_2" name="material_defect_2" value="{{pricing.material_defect_2.value}}" min="0" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label for="material_defect_3">Надбавка за серьезные дефекты:</label>
+                            <input type="number" id="material_defect_3" name="material_defect_3" value="{{pricing.material_defect_3.value}}" min="0" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label for="additional_area_cost">Стоимость доп. площади (за кв. м):</label>
+                            <input type="number" id="additional_area_cost" name="additional_area_cost" value="{{pricing.additional_area_cost.value}}" min="0" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label for="volume_discount_threshold">Порог объема для скидки (шт.):</label>
+                            <input type="number" id="volume_discount_threshold" name="volume_discount_threshold" value="{{pricing.volume_discount_threshold.value}}" min="1">
+                        </div>
+                        <div class="form-group">
+                            <label for="volume_discount">Скидка за объем:</label>
+                            <input type="number" id="volume_discount" name="volume_discount" value="{{pricing.volume_discount.value}}" min="0" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label for="delivery_cost_per_km">Стоимость доставки (за км):</label>
+                            <input type="number" id="delivery_cost_per_km" name="delivery_cost_per_km" value="{{pricing.delivery_cost_per_km.value}}" min="0" step="0.01">
+                        </div>
+                        <button type="submit" class="btn">Сохранить настройки цен</button>
+                    </form>
+                </div>
+
+                <a href="/" class="btn">Вернуться на главную</a>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Контакты</h4>
+                    <p>Адрес: Брянск. пр-т Ленина 41</p>
+                    <p>Телефон: +7-900-693-72-80</p>
+                    <p>Email: qweasdzxc.2015@yandex.ru</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Социальные Сети</h4>
+                    <ul>
+                        <li><a href="https://vk.com/yurnero2488">VK</a></li>
+                        <li><a href="#">Telegram</a></li>
+                        <li><a href="#">Instagram</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Полезная Информация</h4>
+                    <ul>
+                        <li><a href="/about">О нас</a></li>
+                        <li><a href="/terms">Условия использования</a></li>
+                        <li><a href="/privacy">Политика конфиденциальности</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2024 AdverCity. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+
+        // Функции для управления формой добавления предложения
+        function openAddOfferForm() {
+            document.getElementById('add-offer-form').style.display = 'block';
+        }
+
+        function closeAddOfferForm() {
+            document.getElementById('add-offer-form').style.display = 'none';
+            document.getElementById('add-offer-form-data').reset();
+        }
+
+        function openEditOfferForm(id, name, description, banner_type, area, material, work_type, urgency, season, design_complexity, additional_area, material_defect, order_volume, delivery_distance, total_cost) {
+            document.getElementById('edit-offer-id').value = id;
+            document.getElementById('edit-offer-name').value = name;
+            document.getElementById('edit-offer-description').value = description;
+            document.getElementById('edit-offer-banner-type').value = banner_type;
+            document.getElementById('edit-offer-area').value = area;
+            document.getElementById('edit-offer-material').value = material;
+            document.getElementById('edit-offer-work-type').value = work_type;
+            document.getElementById('edit-offer-urgency').value = urgency;
+            document.getElementById('edit-offer-season').value = season;
+            document.getElementById('edit-offer-design-complexity').value = design_complexity;
+            document.getElementById('edit-offer-additional-area').value = additional_area;
+            document.getElementById('edit-offer-material-defect').value = material_defect;
+            document.getElementById('edit-offer-order-volume').value = order_volume;
+            document.getElementById('edit-offer-delivery-distance').value = delivery_distance;
+            document.getElementById('edit-offer-total-cost').value = total_cost;
+            document.getElementById('edit-offer-form').style.display = 'block';
+        }
+
+        function closeEditOfferForm() {
+            document.getElementById('edit-offer-form').style.display = 'none';
+            document.getElementById('edit-offer-form-data').reset();
+        }
+
+        document.getElementById('add-offer-form-data').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData);
+
+            try {
+                const response = await fetch('/admin/add-offer', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data),
+                    credentials: 'include'
+                });
+                const result = await response.json();
+                if (result.success) {
+                    alert('Предложение добавлено!');
+                    window.location.reload();
+                } else {
+                    alert('Ошибка: ' + result.message);
+                }
+            } catch (error) {
+                alert('Произошла ошибка при добавлении предложения.');
+                console.error(error);
+            }
+        });
+
+        document.getElementById('edit-offer-form-data').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData);
+
+            try {
+                const response = await fetch('/admin/edit-offer', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data),
+                    credentials: 'include'
+                });
+                const result = await response.json();
+                if (result.success) {
+                    alert('Предложение обновлено!');
+                    window.location.reload();
+                } else {
+                    alert('Ошибка: ' + result.message);
+                }
+            } catch (error) {
+                alert('Произошла ошибка при редактировании предложения.');
+                console.error(error);
+            }
+        });
+
+        async function deleteOffer(id) {
+            if (!confirm('Вы уверены, что хотите удалить это предложение?')) return;
+
+            try {
+                const response = await fetch('/admin/delete-offer', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id }),
+                    credentials: 'include'
+                });
+                const result = await response.json();
+                if (result.success) {
+                    alert('Предложение удалено!');
+                    window.location.reload();
+                } else {
+                    alert('Ошибка: ' + result.message);
+                }
+            } catch (error) {
+                alert('Произошла ошибка при удалении предложения.');
+                console.error(error);
+            }
+        }
+
+        // Управление пользователями
+        let currentPage = 1;
+        const pageSize = 10;
+        let searchQuery = '';
+
+        function openUsersModal() {
+            document.getElementById('users-modal').style.display = 'flex';
+            loadUsers(currentPage);
+        }
+
+        function closeUsersModal() {
+            document.getElementById('users-modal').style.display = 'none';
+            document.getElementById('user-search').value = '';
+            searchQuery = '';
+            currentPage = 1;
+        }
+
+        async function loadUsers(page) {
+            try {
+                const offset = (page - 1) * pageSize;
+                const response = await fetch(`/admin/search-users?query=${encodeURIComponent(searchQuery)}&limit=${pageSize}&offset=${offset}`, {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json' },
+                    credentials: 'include'
+                });
+                const result = await response.json();
+                if (result.success) {
+                    currentPage = page;
+                    displayUsers(result.users, result.total);
+                } else {
+                    alert('Ошибка: ' + result.message);
+                }
+            } catch (error) {
+                alert('Произошла ошибка при загрузке пользователей.');
+                console.error(error);
+            }
+        }
+
+        function displayUsers(users, total) {
+            const tbody = document.getElementById('users-table-body');
+            tbody.innerHTML = '';
+
+            if (users.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="3" class="no-users">Пользователи не найдены.</td></tr>';
+            } else {
+                users.forEach(user => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${user.email}</td>
+                        <td>
+                            <select class="role-select" onchange="changeUserRole(${user.id}, this.value)">
+                                <option value="user" ${user.role === 'user' ? 'selected' : ''}>Пользователь</option>
+                                <option value="manager" ${user.role === 'manager' ? 'selected' : ''}>Менеджер</option>
+                                <option value="admin" ${user.role === 'admin' ? 'selected' : ''}>Администратор</option>
+                            </select>
+                        </td>
+                        <td>
+                            <button class="btn btn-danger" onclick="deleteUser(${user.id})">Удалить</button>
+                        </td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            }
+
+            // Обновление пагинации
+            const totalPages = Math.ceil(total / pageSize);
+            document.getElementById('page-info').textContent = `Страница ${currentPage} из ${totalPages}`;
+            document.getElementById('prev-page').disabled = currentPage === 1;
+            document.getElementById('next-page').disabled = currentPage === totalPages;
+        }
+
+        let searchTimeout;
+        document.getElementById('user-search').addEventListener('input', () => {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                searchQuery = document.getElementById('user-search').value;
+                currentPage = 1;
+                loadUsers(currentPage);
+            }, 300);
+        });
+
+        async function changeUserRole(userId, newRole) {
+            try {
+                const response = await fetch('/admin/change-user-role', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ userId, newRole }),
+                    credentials: 'include'
+                });
+                const result = await response.json();
+                if (result.success) {
+                    alert('Роль пользователя обновлена!');
+                } else {
+                    alert('Ошибка: ' + result.message);
+                    loadUsers(currentPage);
+                }
+            } catch (error) {
+                alert('Произошла ошибка при изменении роли пользователя.');
+                console.error(error);
+            }
+        }
+
+        async function deleteUser(userId) {
+            if (!confirm('Вы уверены, что хотите удалить этого пользователя?')) return;
+
+            try {
+                const response = await fetch('/admin/delete-user', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ userId }),
+                    credentials: 'include'
+                });
+                const result = await response.json();
+                if (result.success) {
+                    alert('Пользователь удалён!');
+                    loadUsers(currentPage);
+                } else {
+                    alert('Ошибка: ' + result.message);
+                }
+            } catch (error) {
+                alert('Произошла ошибка при удалении пользователя.');
+                console.error(error);
+            }
+        }
+
+        // Обновление настроек цен
+        document.getElementById('pricing-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData);
+
+            try {
+                const response = await fetch('/admin/update-pricing', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data),
+                    credentials: 'include'
+                });
+                const result = await response.json();
+                if (result.success) {
+                    alert('Настройки цен обновлены!');
+                    window.location.reload();
+                } else {
+                    alert('Ошибка: ' + result.message);
+                }
+            } catch (error) {
+                alert('Произошла ошибка при обновлении настроек цен.');
+                console.error(error);
+            }
+        });
+    </script>
+    <script src="/static/js/help.js"></script>
+    <script src="/static/js/auth.js"></script>
+</body>
+</html>

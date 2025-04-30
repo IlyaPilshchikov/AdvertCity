@@ -1,0 +1,194 @@
+/* Общие стили */
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f2f5; /* Светло-серый фон */
+    color: #333; /* Темно-серый текст */
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+    max-width: 1200px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Стили для контейнера контента страницы */
+.content-container {
+    width: 80%;
+    margin: 0 auto;
+    max-width: 1200px;
+    display: block; /* Убираем flex для контента */
+}
+
+/* Стили для страницы готовых предложений */
+.offers-page {
+    padding: 80px 0;
+    text-align: center;
+    overflow: hidden;
+}
+
+.offers-page h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.offers-description {
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.offers-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.offer-item {
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 40px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transition: transform 0.3s ease;
+}
+
+.offer-item:hover {
+    transform: translateY(-10px);
+}
+
+/* Стили для контейнера 3D-модели */
+.model-container {
+    width: 100%;
+    height: 200px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #f5f5f5; /* Фон для области модели */
+}
+
+.offer-item h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.offer-description {
+    font-size: 16px;
+    line-height: 1.4;
+    margin-bottom: 20px;
+    color: #555;
+}
+
+.offer-details {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.offer-details p {
+    font-size: 14px;
+    margin: 8px 0;
+    color: #555;
+}
+
+.offer-details p strong {
+    color: #333;
+}
+
+.add-to-order-btn {
+    display: inline-block;
+    background-color: #ff6f61; /* Акцентный цвет */
+    color: #fff; /* Белый текст */
+    padding: 10px 20px;
+    border-radius: 25px;
+    border: none;
+    font-weight: 700;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+.add-to-order-btn:hover {
+    background-color: #555; /* Темно-серый фон */
+}
+
+.btn {
+    display: inline-block;
+    background-color: #ff6f61; /* Акцентный цвет */
+    color: #fff; /* Белый текст */
+    padding: 10px 20px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #555; /* Темно-серый фон */
+}
+
+.no-offers {
+    font-size: 16px;
+    color: #555;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+/* Анимации */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .content-container {
+        width: 95%;
+    }
+
+    .offers-page h1 {
+        font-size: 28px;
+    }
+
+    .offers-description {
+        font-size: 16px;
+    }
+
+    .offer-item {
+        max-width: 100%;
+    }
+
+    .model-container {
+        height: 150px;
+    }
+
+    .offer-details p {
+        font-size: 12px;
+    }
+
+    .add-to-order-btn {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+}

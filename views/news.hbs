@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Новости - AdverCity</title>
+    <link rel="stylesheet" href="static/styles/header.css">
+    <link rel="stylesheet" href="static/styles/footer.css">
+    <link rel="stylesheet" href="static/styles/help.css">
+    <link rel="stylesheet" href="static/styles/news/news.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="static/img/logo.png" alt="Логотип">
+                <a href="/">AdverCity</a>
+            </div>
+            <nav>
+                <ul class="main-menu">
+                    <li><a href="/">Главная</a></li>
+                    <li><a href="/catalog">Готовые предложения</a></li>
+                    <li><a href="evaluation">Оценка</a></li>
+                    <li><a href="news">Новости</a></li>
+                </ul>
+                <ul class="main-menu auth-links" id="auth-links">
+                    {{#if user}}
+                        <li><a href="/profile">Личный кабинет</a></li>
+                        <li><a href="logout" id="logout-link">Выйти</a></li> <!-- Убрали href="/logout" -->
+                    {{else}}
+                        <li><a href="auth">Вход</a></li>
+                        <li><a href="register">Регистрация</a></li>
+                    {{/if}}
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section class="news-page">
+            <div class="content-container">
+                <div id="new-functionality" class="news-section">
+                    <h1>Новая Функциональность</h1>
+                    <p class="news-date">Опубликовано: 10 октября 2024</p>
+                    <p class="news-content">
+                        Мы рады сообщить, что в нашем сервисе появилась новая функциональность для более детальной оценки рекламных конструкций. Теперь вы можете получить более точные и подробные отчеты, которые помогут вам принимать взвешенные решения.
+                    </p>
+                    <p class="news-content">
+                        Новая функциональность включает в себя:
+                    </p>
+                    <ul class="news-list">
+                        <li>Расширенные параметры оценки</li>
+                        <li>Интерактивные графики и диаграммы</li>
+                        <li>Возможность сохранения отчетов в формате PDF</li>
+                    </ul>
+                </div>
+                <div id="interface-update" class="news-section">
+                    <h1>Обновление Интерфейса</h1>
+                    <p class="news-date">Опубликовано: 15 октября 2024</p>
+                    <p class="news-content">
+                        Интерфейс сервиса был обновлен для улучшения пользовательского опыта. Теперь навигация по сайту стала более удобной, а дизайн — более современным.
+                    </p>
+                    <p class="news-content">
+                        Основные изменения:
+                    </p>
+                    <ul class="news-list">
+                        <li>Новый дизайн главной страницы</li>
+                        <li>Улучшенная навигация</li>
+                        <li>Более интуитивно понятный интерфейс</li>
+                    </ul>
+                </div>
+                <div id="new-experts" class="news-section">
+                    <h1>Новые Эксперты</h1>
+                    <p class="news-date">Опубликовано: 20 октября 2024</p>
+                    <p class="news-content">
+                        Мы расширили команду экспертов для более качественной оценки. Теперь наши клиенты могут рассчитывать на еще более профессиональные рекомендации и анализ.
+                    </p>
+                    <p class="news-content">
+                        Новые эксперты:
+                    </p>
+                    <ul class="news-list">
+                        <li>Иван Иванов — ведущий специалист по рекламным конструкциям</li>
+                        <li>Анна Петрова — эксперт по маркетингу и рекламе</li>
+                        <li>Мария Сидорова — дизайнер с многолетним опытом</li>
+                    </ul>
+                </div>
+                <a href="/" class="btn">Вернуться на главную</a>
+            </div>
+        </section>
+    </main>
+    <!-- Футер (Footer) -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Контакты</h4>
+                    <p>Адрес: Брянск. пр-т Ленина 41</p>
+                    <p>Телефон: +7-900-693-72-80</p>
+                    <p>Email: qweasdzxc.2015@yandex.ru</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Социальные Сети</h4>
+                    <ul>
+                        <li><a href="https://vk.com/yurnero2488">VK</a></li>
+                        <li><a href="#">Telegram</a></li>
+                        <li><a href="#">Instagram</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Полезная Информация</h4>
+                    <ul>
+                        <li><a href="about">О нас</a></li>
+                        <li><a href="terms">Условия использования</a></li>
+                        <li><a href="privacy">Политика конфиденциальности</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 AdverCity. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Подключение AOS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+    <!-- Кнопка помощи -->
+    <div id="help-button" class="help-button" onclick="toggleHelpForm()">?</div>
+
+    <!-- Форма помощи -->
+    <div id="help-form" class="help-form">
+        <span class="close-btn" onclick="toggleHelpForm()">&times;</span>
+        <h2>Получить помощь</h2>
+        <form id="help-form-fields">
+            <label for="help-name">Ваше имя:</label>
+            <input type="text" id="help-name" name="help-name" required>
+            <label for="help-email">Ваш email:</label>
+            <input type="email" id="help-email" name="help-email" required>
+            <label for="help-message">Ваш вопрос:</label>
+            <textarea id="help-message" name="help-message" required></textarea>
+            <button type="submit" class="btn">Отправить</button>
+        </form>
+    </div>
+</body>
+    <!-- Подключение AOS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+    
+    <!-- Подключение JavaScript -->
+    <script src="/static/js/help.js"></script>
+    <script src="/static/js/auth.js"></script>
+    <script src="/js/main.js"></script>
+</html>

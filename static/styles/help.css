@@ -1,0 +1,106 @@
+/* Кнопка помощи */
+.help-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background-color: #ff6f61;
+    color: #fff;
+    font-size: 24px;
+    text-align: center;
+    line-height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+    z-index: 1000; /* Убедитесь, что кнопка находится поверх других элементов */
+}
+
+.help-button:hover {
+    background-color: #555;
+}
+
+/* Форма помощи */
+.help-form {
+    display: none;
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    width: 300px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000; /* Убедитесь, что форма находится поверх других элементов */
+    font-family: 'Montserrat', sans-serif;
+}
+
+.help-form h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.help-form label {
+    display: block;
+    text-align: left;
+    margin-bottom: 5px;
+    font-weight: 700;
+    color: #333;
+}
+
+.help-form input,
+.help-form textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+    color: #333;
+    transition: border-color 0.3s ease;
+}
+
+.help-form input:focus,
+.help-form textarea:focus {
+    border-color: #ff6f61;
+    outline: none;
+}
+
+.help-form textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.help-form .btn {
+    width: 100%;
+    background-color: #ff6f61;
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: background-color 0.3s ease;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.help-form .btn:hover {
+    background-color: #555;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #555;
+}
+
+.close-btn:hover {
+    color: #ff6f61;
+}

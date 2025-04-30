@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AdverCity - Оценка Рекламных Конструкций</title>
+    <link rel="stylesheet" href="/static/styles/header.css">
+    <link rel="stylesheet" href="/static/styles/footer.css">
+    <link rel="stylesheet" href="/static/styles/help.css">
+    <link rel="stylesheet" href="/static/styles/reports/reports.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container_header">
+            <div class="logo">
+                <img src="static/img/logo.png" alt="Логотип">
+                <a href="/">AdverCity</a>
+            </div>
+            <nav>
+                <ul class="main-menu">
+                    <li><a href="/">Главная</a></li>
+                    <li><a href="/catalog">Готовые предложения</a></li>
+                    <li><a href="evaluation">Оценка</a></li>
+                    <li><a href="news">Новости</a></li>
+                    <li><a href="reports">Отчеты</a></li>
+                </ul>
+                <ul class="main-menu auth-links" id="auth-links">
+                    {{#if user}}
+                        <li><a href="/profile">Личный кабинет</a></li>
+                        <li><a href="logout" id="logout-link">Выйти</a></li> <!-- Убрали href="/logout" -->
+                    {{else}}
+                        <li><a href="auth">Вход</a></li>
+                        <li><a href="register">Регистрация</a></li>
+                    {{/if}}
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section class="reports-section">
+            <div class="container">
+                <h1>Отчеты менеджеров</h1>
+                <p>Добавляйте отчеты о выполненных заказах и отслеживайте их в удобной таблице.</p>
+                <form class="report-form">
+                    <h2>Добавить отчет</h2>
+                    <label for="order-id">ID заказа:</label>
+                    <input type="text" id="order-id" name="order-id" placeholder="Введите ID заказа" required>
+                    
+                    <label for="manager-name">Имя менеджера:</label>
+                    <input type="text" id="manager-name" name="manager-name" placeholder="Введите ваше имя" required>
+                    
+                    <label for="report-details">Детали отчета:</label>
+                    <textarea id="report-details" name="report-details" rows="5" placeholder="Опишите выполнение заказа" required></textarea>
+                    
+                    <button type="submit" class="btn">Добавить отчет</button>
+                </form>
+                <div class="reports-list">
+                    <h2>Список отчетов</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID заказа</th>
+                                <th>Имя менеджера</th>
+                                <th>Детали отчета</th>
+                                <th>Дата</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Иван Иванов</td>
+                                <td>Установлена конструкция на ул. Ленина, 25.</td>
+                                <td>12.01.2025</td>
+                            </tr>
+                            <!-- Пример новых записей -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Контакты</h4>
+                    <p>Адрес: Брянск. пр-т Ленина 41</p>
+                    <p>Телефон: +7-900-693-72-80</p>
+                    <p>Email: qweasdzxc.2015@yandex.ru</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Социальные Сети</h4>
+                    <ul>
+                        <li><a href="https://vk.com/yurnero2488">VK</a></li>
+                        <li><a href="#">Telegram</a></li>
+                        <li><a href="#">Instagram</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Полезная Информация</h4>
+                    <ul>
+                        <li><a href="about">О нас</a></li>
+                        <li><a href="terms">Условия использования</a></li>
+                        <li><a href="privacy">Политика конфиденциальности</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 AdverCity. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/static/js/auth.js"></script>
+    <script src="/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,440 @@
+/* Общие стили */
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f2f5; /* Светло-серый фон */
+    color: #333; /* Темно-серый текст */
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+    max-width: 1200px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Стили для баннера (Hero Section) с Swiper */
+.hero {
+    position: relative;
+    color: #ff6f61;;
+    text-align: center;
+}
+
+.swiper-container {
+    width: 100%;
+    height: 860px;
+}
+
+.swiper-slide {
+    background-size: cover;
+    background-position: center;
+}
+
+.slide1 {
+    background-image: url('../../../static/img/banner2.png');
+}
+
+.slide2 {
+    background-image: url('../../../static/img/banner1.png');
+}
+
+.slide3 {
+    background-image: url('../../../static/img/banner3.png');
+}
+
+.hero .container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.hero h1 {
+    font-size: 52px;
+    margin-bottom: 20px;
+    animation: fadeIn 2s ease-in-out;
+}
+
+.hero p {
+    font-size: 32px;
+    margin-bottom: 40px;
+    max-width: 800px;
+    animation: slideIn 2s ease-in-out;
+}
+
+.hero .btn-container {
+    margin-top: auto;
+    margin-bottom: 40px;
+}
+
+.hero .btn {
+    background-color: #fff;
+    color: #ff6f61;
+    padding: 30px 52px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 30px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    animation: bounce 2s infinite;
+}
+
+.hero .btn:hover {
+    background-color: #555; /* Темно-серый фон */
+    color: #fff; /* Белый текст */
+}
+
+/* Анимации */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { transform: translateY(50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-20px); }
+    60% { transform: translateY(-10px); }
+}
+
+/* Стили для преимуществ (Features) */
+.features {
+    padding: 80px 0;
+    text-align: center;
+    overflow: hidden;
+}
+
+.features h2 {
+    font-size: 36px;
+    margin-bottom: 40px;
+}
+
+.feature-list {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.feature-item {
+    flex: 1 1 30%;
+    margin: 20px;
+    background-color: #fff; /* Белый фон */
+    border-radius: 10px; /* Скругленные углы */
+    padding: 20px; /* Внутренний отступ */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Тень */
+    transition: transform 0.3s ease; /* Анимация при наведении */
+    position: relative;
+    overflow: hidden;
+}
+
+.feature-item:hover {
+    transform: translateY(-10px); /* Сдвиг вверх при наведении */
+}
+
+.feature-item img {
+    width: 100%;
+    height: 150px; /* Задаем фиксированную высоту */
+    object-fit: contain; /* Подгоняем изображение под размер */
+    border-radius: 10%; /* Закругленные углы для изображений */
+    margin-bottom: 20px;
+}
+
+.feature-item h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.feature-item p {
+    font-size: 16px;
+}
+
+/* Стили для примеров работ (Portfolio) */
+.portfolio {
+    padding: 80px 0;
+    text-align: center;
+    overflow: hidden;
+}
+
+.portfolio h2 {
+    font-size: 36px;
+    margin-bottom: 40px;
+}
+
+.portfolio-list {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.portfolio-item {
+    flex: 1 1 30%;
+    margin: 20px;
+    background-color: #fff; /* Белый фон */
+    border-radius: 10px; /* Скругленные углы */
+    padding: 20px; /* Внутренний отступ */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Тень */
+    transition: transform 0.3s ease; /* Анимация при наведении */
+    position: relative;
+    overflow: hidden;
+}
+
+.portfolio-item:hover {
+    transform: translateY(-10px); /* Сдвиг вверх при наведении */
+}
+
+.portfolio-item img {
+    width: 100%;
+    height: 200px; /* Задаем фиксированную высоту */
+    object-fit: cover; /* Подгоняем изображение под размер */
+    border-radius: 10px; /* Закругленные углы для изображений */
+    margin-bottom: 20px;
+}
+
+.portfolio-item h3 {
+    font-size: 24px;
+    margin: 20px 0 10px;
+}
+
+.portfolio-item p {
+    font-size: 16px;
+    margin: 0 20px 20px;
+}
+
+.portfolio-item .btn {
+    display: inline-block;
+    margin: 20px;
+    background-color: #ff6f61; /* Акцентный цвет */
+    color: #fff; /* Белый текст */
+    padding: 10px 20px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: background-color 0.3s ease;
+}
+
+.portfolio-item .btn:hover {
+    background-color: #555; /* Темно-серый фон */
+}
+
+/* Стили для отзывов (Testimonials) */
+.testimonials {
+    padding: 80px 0;
+    text-align: center;
+    overflow: hidden;
+}
+
+.testimonials h2 {
+    font-size: 36px;
+    margin-bottom: 40px;
+}
+
+.testimonial-list {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.testimonial-item {
+    flex: 1 1 30%;
+    margin: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.testimonial-item:hover {
+    transform: translateY(-10px);
+}
+
+.testimonial-item h4 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    position: relative;
+    display: inline-block;
+}
+
+.testimonial-item h4::after {
+    content: "★★★★★";
+    color: #ffcc00; /* Желтый цвет звезд */
+    margin-left: 10px;
+    font-size: 18px;
+}
+
+.testimonial-item p {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+/* Стили для новостей и обновлений (News & Updates) */
+.news {
+    padding: 80px 0;
+    text-align: center;
+    overflow: hidden;
+}
+
+.news h2 {
+    font-size: 36px;
+    margin-bottom: 40px;
+}
+
+.news-list {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.news-item {
+    flex: 1 1 30%;
+    margin: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.news-item:hover {
+    transform: translateY(-10px);
+}
+
+.news-item h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.news-item p {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.news-item .btn {
+    display: inline-block;
+    background-color: #ff6f61; /* Акцентный цвет */
+    color: #fff; /* Белый текст */
+    padding: 10px 20px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: background-color 0.3s ease;
+}
+
+.news-item .btn:hover {
+    background-color: #555; /* Темно-серый фон */
+}
+
+/* Стили для футера */
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 40px 0;
+    text-align: center;
+    margin-top: auto;
+    width: 100%;
+    animation: fadeInUp 1s ease-in-out;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.footer-section {
+    flex: 1 1 30%;
+    margin: 20px;
+}
+
+.footer-section h4 {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.footer-section p, .footer-section ul {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+    color: #ff6f61;
+}
+
+.footer-bottom {
+    margin-top: 40px;
+    font-size: 14px;
+}
+/* Кнопка помощи */
+.help-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background-color: #ff6f61;
+    color: #fff;
+    font-size: 24px;
+    text-align: center;
+    line-height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+}
+
+.help-button:hover {
+    background-color: #555;
+}
+
+/* Анимация для футера */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
