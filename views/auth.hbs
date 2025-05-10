@@ -93,6 +93,7 @@
         <span class="close-btn" onclick="toggleHelpForm()">&times;</span>
         <h2>Получить помощь</h2>
         <form id="help-form-fields">
+            <input type="hidden" name="access_key" value="c7d0d17c-05cc-4328-a19c-9db56c5a2c1e">
             <label for="help-name">Ваше имя:</label>
             <input type="text" id="help-name" name="help-name" required>
             <label for="help-email">Ваш email:</label>
@@ -101,6 +102,9 @@
             <textarea id="help-message" name="help-message" required></textarea>
             <button type="submit" class="btn">Отправить</button>
         </form>
+        <div id="form-success-message" class="success-message" style="display:none;">
+            Ваш вопрос отправлен! Мы свяжемся с вами в ближайшее время.
+        </div>
     </div>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
