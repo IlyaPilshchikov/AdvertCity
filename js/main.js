@@ -190,7 +190,6 @@ app.post('/register', async (req, res) => {
 app.post('/submit-order', async (req, res) => {
     console.log('Сессия при отправке заказа:', req.session);
     console.log('Пользователь в сессии:', req.session.user);
-
     const {
         banner_type,
         area,
@@ -205,14 +204,11 @@ app.post('/submit-order', async (req, res) => {
         delivery_distance,
         total_cost
     } = req.body;
-
     const userId = req.session.user ? req.session.user.id : null;
     console.log('Извлечённый userId:', userId);
-
     if (!userId) {
         return res.status(401).json({ success: false, message: 'Пользователь не авторизован' });
     }
-
     try {
         const result = await client.query(
             `INSERT INTO orders (
@@ -630,13 +626,11 @@ app.get('/admin/search-users', async (req, res) => {
         let usersResult, countResult;
 
         if (query && query.trim() !== '') {
-            // Поиск пользователей по email с использованием LIKE
             usersQuery = 'SELECT id, email, role FROM users WHERE email ILIKE $1 LIMIT $2 OFFSET $3';
             countQuery = 'SELECT COUNT(*) FROM users WHERE email ILIKE $1';
             usersResult = await client.query(usersQuery, [`%${query}%`, parseInt(limit), parseInt(offset)]);
             countResult = await client.query(countQuery, [`%${query}%`]);
         } else {
-            // Если строка поиска пустая, возвращаем пользователей с пагинацией
             usersQuery = 'SELECT id, email, role FROM users LIMIT $1 OFFSET $2';
             countQuery = 'SELECT COUNT(*) FROM users';
             usersResult = await client.query(usersQuery, [parseInt(limit), parseInt(offset)]);
